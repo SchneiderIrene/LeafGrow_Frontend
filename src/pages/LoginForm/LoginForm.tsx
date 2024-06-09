@@ -28,7 +28,7 @@ import {
 import { useEffect } from "react"
 import Button from "components/Button/Button"
 import GoToBackButton from "components/GoToBackButton/GoToBackButton"
-import { ButtonContainer } from "pages/BetweenPage/styles";
+import Spinner from "components/Spinner/Spinner";
 
 const LoginForm = () => {
   const navigate = useNavigate()
@@ -36,6 +36,7 @@ const LoginForm = () => {
   const isLogin = useAppSelector(authSliceSelectors.isLogin)
   const errorField = useAppSelector(authSliceSelectors.errorField)
   const errorMessage = useAppSelector(authSliceSelectors.error)
+  const status = useAppSelector(authSliceSelectors.status)
 
   const validationSchema = Yup.object().shape({
     [FIELD_NAMES.EMAIL]: Yup.string()
@@ -78,6 +79,7 @@ const LoginForm = () => {
 
   return (
     <LoginFormWrapper>
+      {status === 'loading'&& <Spinner/>}
       <GoToBackButton />
       <LoginFormContainer onSubmit={formik.handleSubmit}>
         <TitleContainer>
@@ -120,19 +122,12 @@ const LoginForm = () => {
           <Checkbox type="checkbox"/>
 <LabelCheckBox>Zugangsdaten speichern</LabelCheckBox>
         </ChecboxContainer>
-
 <Button name="Anmelden" bgColorIsRed type="submit" />
 <PasswordForget href="">Passwort vergessen?</PasswordForget>
       </ButtonBox>
-           
-     
-       
         </InputButtonContainer>
          </LoginFormContainer>
-
-
         <Button name="Registrieren" bgColorIsRed onButtonClick={toRegister} />
-     
     </LoginFormWrapper>
   )
 }

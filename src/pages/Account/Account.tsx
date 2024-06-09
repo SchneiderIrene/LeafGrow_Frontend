@@ -25,8 +25,7 @@ import {
   TextPasswordChangeModal,
   Title,
   TitleContainerPasswordChangeModal,
-  TitleInformation,
-  TitlePasswordChangeModal,
+  TitleInformation
 } from "./styles"
 import {
   authSliceActions,
@@ -35,6 +34,7 @@ import {
 import { useAppDispatch } from "store/hooks"
 import { CloseButton } from "components/Modal/styles"
 import Button from "components/Button/Button"
+import Spinner from "components/Spinner/Spinner";
 
 const Account = () => {
   const dispatch = useAppDispatch()

@@ -23,7 +23,10 @@ export const authSlice = createAppSlice({
         } catch (error) {
           if (error instanceof AxiosError) {
             if (error.response?.status === 500) {
-              return thunkApi.rejectWithValue("Server Error")
+              return thunkApi.rejectWithValue({
+                message: "Server Error",
+                type: "server errors",
+              })
             }
             return thunkApi.rejectWithValue({
               message: error?.response?.data.message,

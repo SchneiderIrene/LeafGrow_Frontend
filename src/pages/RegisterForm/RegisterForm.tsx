@@ -4,14 +4,21 @@ import {
   BackToRegister,
   ButtonMessage,
   CheckBoxContainer,
+  Checkbox,
   CheckboxError,
   EmailMessage,
+  ErrorBox,
   InputsContainer,
   Label,
-  RegisterButton,
   RegisterFormContainer,
+  RegisterWrapper,
+  StyledLink,
+  TextErrorServer,
   TextMessage,
   TextQustion,
+  TitleContainer,
+  TitleRegister,
+  TitleText,
 } from "./styles"
 import { useFormik } from "formik"
 import { FIELD_NAMES, RegisterFormValues } from "./types"
@@ -21,6 +28,9 @@ import {
   authSliceSelectors,
 } from "store/redux/auth/authSlice"
 import { useEffect, useState } from "react"
+import GoToBackButton from "components/GoToBackButton/GoToBackButton";
+import Button from "components/Button/Button";
+import Spinner from "components/Spinner/Spinner";
 
 function RegisterForm() {
   const dispatch = useAppDispatch()
@@ -96,7 +106,9 @@ function RegisterForm() {
   }
 
   return (
-    <>
+    <RegisterWrapper>
+      {status === 'loading' && <Spinner/>}
+      <GoToBackButton/>
       {isRegister && status === "success" && !errorField ? (
         <EmailMessage>
           <TextMessage>
@@ -110,7 +122,19 @@ function RegisterForm() {
         </EmailMessage>
       ) : (
         <RegisterFormContainer onSubmit={formik.handleSubmit}>
-           {errorMessage && <p>{errorMessage}</p>}
+          <TitleContainer>
+            
+            <TitleRegister>Registrieren</TitleRegister>
+            
+             <TitleText>Hast du bereits ein Konto? <span/>  
+              <StyledLink to="/login">Melde dich an</StyledLink></TitleText>
+              <ErrorBox>
+                 {errorMessage && <TextErrorServer>{errorMessage}</TextErrorServer>}
+              </ErrorBox>
+            
+           
+          </TitleContainer>
+            
           <InputsContainer>
             <Input
               name={FIELD_NAMES.USERNAME}
@@ -145,7 +169,7 @@ function RegisterForm() {
             />
           </InputsContainer>
           <CheckBoxContainer>
-            <input
+            <Checkbox
               type="checkbox"
               id="checbox-id"
               name={FIELD_NAMES.CHECKBOX}
@@ -165,10 +189,10 @@ function RegisterForm() {
               </CheckboxError>
             )}
           </CheckBoxContainer>
-          <RegisterButton type="submit">Konto erstellen</RegisterButton>
+          <Button name="Konto erstellen" type="submit" bgColorIsRed/>
         </RegisterFormContainer>
-      )}
-    </>
+    )}
+    </RegisterWrapper>
   )
 }
 export default RegisterForm

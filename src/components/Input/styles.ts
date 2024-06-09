@@ -19,8 +19,6 @@ export const InputLabel = styled.label`
 export const InputComponent = styled.input`
   width: 100%;
   height: 60px;
-  padding: 12px;
-  padding-right: 40px;
   outline: none;
   background-color: rgba(255, 254, 239, 0);
   border: 1px solid rgba(55, 62, 58, 0.4);
@@ -31,6 +29,13 @@ export const InputComponent = styled.input`
   &::placeholder {
     color: rgba(55, 62, 58, 0.4);
   }
+  :valid {
+    background-color: rgba(255, 254, 239, 0);
+  }
+  :focus {
+    background-color: rgba(255, 254, 239, 0);
+  }
+
 `
 
 export const ErrorMessage = styled.p`
