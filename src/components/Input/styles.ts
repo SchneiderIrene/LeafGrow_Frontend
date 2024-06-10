@@ -14,6 +14,11 @@ export const InputLabel = styled.label`
   font-family: "DM Sans";
   font-weight: 500;
   color: rgba(55, 62, 58, 0.8);
+  appearance: none;
+  
+  :-ms-reveal {
+    display: none;
+  }
 `
 
 export const InputComponent = styled.input`
