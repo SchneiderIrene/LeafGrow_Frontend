@@ -37,10 +37,10 @@ function Layout({ children }: LayoutProps) {
   const userData = useAppSelector(authSliceSelectors.userData)
 
   const handleLinkClick = (path: string) => {
-    if (!userLogIn && (path === "/anleitung" || path === "/meinetöpfe")) {
-      if (path === "/anleitung") {
+    if (!userLogIn && (path === "/guide" || path === "/mypots")) {
+      if (path === "/guide") {
         alert("Anleitung ist nur für registrierte und angemeldete Benutzer verfügbar.");
-      } else if (path === "/meinetöpfe") {
+      } else if (path === "/mypots") {
         alert("Meine Töpfe ist nur für registrierte und angemeldete Benutzer verfügbar.");
       }
     } else {
