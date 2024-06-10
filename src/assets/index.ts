@@ -11,5 +11,6 @@ export { default as Icon2} from "./personalization.png";
 export { default as Icon3} from "./security.png";
 export { default as Icon4} from "./notifications.png";
 export { default as Icon5} from "./simplicity.png";
+export { default as PotImg} from "./pot_img.png";
 
 

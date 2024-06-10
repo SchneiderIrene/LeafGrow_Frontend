@@ -52,8 +52,8 @@ export const authSlice = createAppSlice({
           const {type, message} = action.payload
           if (type === "validation") {
              state.errorField = {
-            email: "Dieser Benutzername wird bereits verwendet. Bitte, verwende einen anderen Benutzernamen",
-            password: "Diese E-Mail-Adresse wird bereits verwendet. Bitte, verwende eine andere E-Mail-Adresse",
+            username: "Dieser Benutzername wird bereits verwendet. Bitte, verwende einen anderen Benutzernamen",
+            email: "Diese E-Mail-Adresse wird bereits verwendet. Bitte, verwende eine andere E-Mail-Adresse",
           }
           } else {
             state.error = action.payload.message
