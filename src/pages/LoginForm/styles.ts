@@ -99,5 +99,5 @@ export const TextErrorServer = styled.p`
   font-size: 20px;
   font-family: "DM Sans";
   font-weight: 500;
-  position: fixed;
+  position: absolute;
 `
