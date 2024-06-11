@@ -45,18 +45,12 @@ font-family: "Inter";
   color: rgba(55, 62, 58, 1);
 `
 
-
 export const InputsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 100%;
 `
-export const CheckBoxContainer = styled.div``
-export const Label = styled.label``
-export const CheckboxError = styled.div``
-export const RegisterButton = styled.button``
-export const UserButton = styled.button``
 
 export const EmailMessage = styled.div`
 display: flex;
@@ -76,16 +70,6 @@ export const TextQustion = styled.p`
 font-size: 24px;
 `
 
-export const ButtonMessage = styled.button`
-width: 100%;
-height: 58px;
-color: aliceblue;
-font-size: 20px;
-border: none;
-background-color: rgba(186, 45, 0, 1);
-cursor: pointer;
-`
-
 export const BackToRegister = styled.a`
 font-size: 20px;
 text-decoration: underline;
@@ -94,15 +78,13 @@ cursor: pointer;
 
 export const MessageError = styled.p`
 color: red;
-
+`
+export const CheckBoxContainer = styled.div``
+export const CheckboxError = styled.div`
+position: absolute;
 `
 
-export const Checkbox = styled.input`
-border: 1.97px solid rgba(55, 62, 58, 1);
-width: 18px;
-height: 18px;
-`
-export const TextErrorServer = styled.p`
+export const TextError = styled.p`
   color: rgba(186, 45, 0, 1);
   font-size: 20px;
   font-family: "DM Sans";
@@ -113,7 +95,32 @@ export const ErrorBox = styled.div`
 position: absolute;
 display: flex;
 justify-content: center;
-top: 320px;
+top: 300px;
 
 `
 
+export const StyledP = styled.span`
+  text-align: left;
+  font-size: 12px;
+  color: #007132;
+  font-family: "DM Sans";
+`
+export const StyledH5 = styled.h5`
+  text-align: left;
+  font-size: 12px;
+  color: #373e3a;
+  font-family: "DM Sans";
+`
+export const Label = styled.label`
+  font-family: "DM Sans";
+  font-size: 12px;
+  color: #373e3a;
+  cursor: pointer;
+  &::after {
+    content: " ";
+  }
+  & a {
+    text-decoration: underline;
+    color: #373e3a;
+  }
+`

@@ -9,6 +9,7 @@ function Button({
   color = "grey",
   bgColorIsRed = false,
   border = false,
+  children
 }: ButtonProps) { 
   return (
     <ButtonComponent

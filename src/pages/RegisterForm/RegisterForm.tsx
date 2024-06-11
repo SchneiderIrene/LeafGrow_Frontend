@@ -2,9 +2,7 @@ import Input from "components/Input/Input"
 import * as Yup from "yup"
 import {
   BackToRegister,
-  ButtonMessage,
   CheckBoxContainer,
-  Checkbox,
   CheckboxError,
   EmailMessage,
   ErrorBox,
@@ -12,7 +10,11 @@ import {
   Label,
   RegisterFormContainer,
   RegisterWrapper,
+  StyledH5,
   StyledLink,
+  StyledP,
+  TextError,
+  TextErrorField,
   TextErrorServer,
   TextMessage,
   TextQustion,
@@ -124,12 +126,10 @@ function RegisterForm() {
              <TitleText>Hast du bereits ein Konto? <span/>  
               <StyledLink to="/login">Melde dich an</StyledLink></TitleText>
               <ErrorBox>
-                 {errorMessage && <TextErrorServer>{errorMessage}</TextErrorServer>}
+                 {errorMessage && <TextError>{errorMessage}</TextError>}
+                 {errorField && <TextError>{errorField.message}</TextError>}
               </ErrorBox>
-            
-           
           </TitleContainer>
-            
           <InputsContainer>
             <Input
               name={FIELD_NAMES.USERNAME}
@@ -137,11 +137,10 @@ function RegisterForm() {
               label="Benutzername"
               onInputChange={formik.handleChange}
               value={formik.values.username}
-              error={formik.errors.username || errorField?.username}
+              error={formik.errors.username }
               onBlur={formik.handleBlur}
               onChange={formik.handleBlur}
             />
-
             <Input
               name={FIELD_NAMES.EMAIL}
               type="email"
@@ -149,7 +148,7 @@ function RegisterForm() {
               label="E-Mail-Adresse"
               onInputChange={formik.handleChange}
               value={formik.values.email}
-              error={formik.errors.email || errorField?.email}
+              error={formik.errors.email }
               onBlur={formik.handleBlur}
             />
             <Input
@@ -164,19 +163,32 @@ function RegisterForm() {
             />
           </InputsContainer>
           <CheckBoxContainer>
-            <Checkbox
-              type="checkbox"
-              id="checbox-id"
-              name={FIELD_NAMES.CHECKBOX}
-              checked={formik.values.checkbox}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
-            <Label
-              htmlFor="checbox-id"
-              style={{ textDecoration: "underline", cursor: "pointer" }}
-            >
-              Ich akzeptiere die Bedingungen
+          <StyledH5>
+              <StyledP> Wichtig: *Felder sind erforderlich.</StyledP> Achte
+              darauf, dass nach der Kontoerstellung dein Benutzername und deine
+              E-Mail-Adresse nicht geändert werden können.
+            </StyledH5>
+            <br />
+            <Label htmlFor="checbox-id">
+              <input
+                type="checkbox"
+                id="checbox-id"
+                name={FIELD_NAMES.CHECKBOX}
+                checked={formik.values.checkbox}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <span>*Ich habe die </span>
+              <a href="/nutzungsbedingungen">Nutzungsbedinungen</a>
+              <span> und </span>
+              <a href="/legalinfo">gesetzliche Informationen</a>
+              <span>
+                gelesen und akzeptiere diese. Zusätzlich habe ich die
+                Informationen über die Verwendung meiner personenbezogenen Daten
+                verstanden, die in der{" "}
+              </span>
+              <a href="/datenschutzerklärung">Datenschutzerklärung</a>
+              <span> erläutert werden.</span>
             </Label>
             {formik.errors.checkbox && (
               <CheckboxError style={{ color: "red" }}>

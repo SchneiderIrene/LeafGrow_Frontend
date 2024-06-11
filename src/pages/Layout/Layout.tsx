@@ -17,38 +17,37 @@ import {
   AccountContainer,
   FooterLeftLink,
   StyledButton,
-  NavContainerLink
+  NavContainerLink,
+  ModalContainer,
+  ModalTextWrapper,
+  ArrowIcon,
+  ModalText
 } from "./styles"
 import { LogoH } from "assets"
-import {
-  authSliceActions,
-  authSliceSelectors,
-} from "store/redux/auth/authSlice"
-import { useAppDispatch, useAppSelector } from "store/hooks"
+import {authSliceSelectors} from "store/redux/auth/authSlice"
+import {  useAppSelector } from "store/hooks"
 import Button from "components/Button/Button"
+import Modal from "components/Modal/Modal";
+import { useState } from "react";
 
 function Layout({ children }: LayoutProps) {
   const navigate = useNavigate()
-  const goToHomePage = () => navigate("/")
+  
+  const goToHomePage = () =>{
+    navigate("/")
+    setIsModalOpen(false)
+  } 
 
-  const dispatch = useAppDispatch()
-
-  const userLogIn = useAppSelector(authSliceSelectors.isLogin)
+  const isLogin = useAppSelector(authSliceSelectors.isLogin)
   const userData = useAppSelector(authSliceSelectors.userData)
 
-  const handleLinkClick = (event:React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
-       event.preventDefault();
-    if (!userLogIn && (path === "/guide" || path === "/mypots")) {
-      if (path === "/guide") {
-        alert("Anleitung ist nur für registrierte und angemeldete Benutzer verfügbar.");
-      } else if (path === "/mypots") {
-        alert("Meine Töpfe ist nur für registrierte und angemeldete Benutzer verfügbar.");
-      }
-      
-      return;
-    } 
-      navigate(path);
-  };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleOpenModal = () => setIsModalOpen(true)
+  const handleCloseModal = () => setIsModalOpen(false)
+  
+
 
   const toLogin = () => {
     navigate("/login")
@@ -70,27 +69,52 @@ function Layout({ children }: LayoutProps) {
           >
             Home
           </StyledNavLink>
-          <StyledNavLink
+          {isLogin ? (
+            <StyledNavLink
             style={({ isActive }) => ({
               textDecoration: isActive ? "underline" : "none",
             })}
             to="/guide"
-            onClick={(e) => handleLinkClick(e,"/guide")}
+            onClick={() => navigate("/guide")}
           >
             Anleitung
           </StyledNavLink>
-          <StyledNavLink
+          ) : (
+            <StyledNavLink
+            style={({ isActive }) => ({
+              textDecoration: isActive ? "underline" : "none",
+            })}
+            to="/guide"
+            onClick={handleOpenModal}
+          >
+            Anleitung
+          </StyledNavLink>
+          )}
+          {isLogin ? (
+            <StyledNavLink
             style={({ isActive }) => ({
               textDecoration: isActive ? "underline" : "none",
             })}
             to="/mypots"
-            onClick={(e) => handleLinkClick(e, "/mypots")}
+            onClick={() => navigate("/mypots")}
           >
             Töpfe
           </StyledNavLink>
+          ) : (
+            <StyledNavLink
+            style={({ isActive }) => ({
+              textDecoration: isActive ? "underline" : "none",
+            })}
+            to="/mypots"
+            onClick={handleOpenModal}
+          >
+            Töpfe
+          </StyledNavLink>
+          )}
+          
           </NavContainerLink>
          
-          {userLogIn ? (
+          {isLogin ? (
             <StyledNavLink
               to="/account"
               onClick={() => navigate("/account")}
@@ -105,6 +129,21 @@ function Layout({ children }: LayoutProps) {
               <Button name="Anmelden" bgColorIsRed onButtonClick={toLogin} />
             </StyledButton>
           )}
+           {!isLogin && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <ModalContainer>
+            <ModalTextWrapper>
+              <ModalText>
+                Diese Seite ist nur für registrierte und eingeloggte
+                Benutzer/innen verfügbar
+              </ModalText>
+              <Button name={<span>Zurück zum Homepage <ArrowIcon>→</ArrowIcon></span>} 
+              bgColorIsRed 
+              onButtonClick={goToHomePage}/>
+            </ModalTextWrapper>
+          </ModalContainer>
+        </Modal>
+      )}
         </NavContainer>
       </Header>
       <Main>{children}</Main>
@@ -119,10 +158,26 @@ function Layout({ children }: LayoutProps) {
           <HeaderLogo src={LogoH} />
         </HeaderLogoContainer>
         <FooterNavContainer>
-          <StyledLink to="/">Home</StyledLink>
-          <StyledLink to="/meinetöpfe">Meine Töpfe</StyledLink>
+           {/* <StyledLink to="/">Datenschutz</StyledLink>
+          <StyledLink to="/">Nutzungsbedingungen</StyledLink>
+          <StyledLink to="/">Impressum</StyledLink> */}
         </FooterNavContainer>
       </Footer>
+      {isModalOpen && (
+         <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+         <ModalContainer>
+           <ModalTextWrapper>
+             <ModalText>
+               Diese Seite ist nur für registrierte und eingeloggte
+               Benutzer/innen verfügbar
+             </ModalText>
+             <Button name={<span>Zurück zum Homepage <ArrowIcon>→</ArrowIcon></span>} 
+             bgColorIsRed 
+             onButtonClick={goToHomePage}/>
+           </ModalTextWrapper>
+         </ModalContainer>
+       </Modal>
+      )}
     </LayoutWrapper>
   )
 }

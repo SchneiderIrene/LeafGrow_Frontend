@@ -45,7 +45,7 @@ import {
   BackgroundImage,
   StyledLink,
 } from "./styles"
-import Button from "components/Button/Button";
+import Button from "components/Button/Button"
 
 function Home() {
   const navigate = useNavigate()
@@ -141,7 +141,13 @@ function Home() {
           Cannabis zu Hause mit LeafGrow
         </p>
         <ButtonControl>
-          {!userLogIn && <Button name="Anmelden"bgColorIsRed onButtonClick={handleButtonClick}/>}
+          {!userLogIn && (
+            <Button
+              name="Anmelden"
+              bgColorIsRed
+              onButtonClick={handleButtonClick}
+            />
+          )}
         </ButtonControl>
       </StyledPContainer4>
 
@@ -162,10 +168,8 @@ function Home() {
             <StyledSpan>02</StyledSpan> Wurde Cannabis legalisiert? Ab dem 1.
             April 2024 trat das Cannabis-Gesetz in Kraft, welches den Besitz und
             Anbau von Cannabis in Deutschland unter bestimmten Vorgaben für
-            Erwachsene legalisiert. 
-              <StyledLink to="https://www.bundesgesundheitsministerium.de/service/gesetze-und-verordnungen/detail/cannabisgesetz.html">
-                Mehr zu erfahren
-              </StyledLink>            
+            Erwachsene legalisiert.
+            <StyledLink to="/legalinfo">Mehr zu erfahren</StyledLink>
           </StyledP>
           <StyledP>
             <StyledSpan>03</StyledSpan> Warum muss man sich bei LeafGrow
@@ -196,7 +200,7 @@ function Home() {
         Wir helfen dir, Klarheit zu schaffen! <br />
         Schreibe uns einfach eine E-Mail:{" "}
       </StyledP5>
-      <p>Email: info@leafgrow.com</p>      
+      <p>Email: info@leafgrow.com</p>
       <LogoContainer>
         <ImageLogo src={LogoF} alt="Logo" />
       </LogoContainer>

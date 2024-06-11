@@ -18,6 +18,7 @@ import {
   authSliceActions,
   authSliceSelectors,
 } from "store/redux/auth/authSlice"
+import LegalInfo from "pages/LegalInfo/LegalInfo";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/legalInfo" element={<LegalInfo />} />
             <Route path="/guide" element={<Guide />} />
             <Route path="/mypots" element={<MyPots />} />
             <Route path="/mypots/pot1" element={<Pot1 />} />

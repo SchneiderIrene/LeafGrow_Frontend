@@ -1,4 +1,4 @@
-import { Pot } from "../pots/types";
+
 
 export interface User {
   username?: string,
@@ -11,9 +11,10 @@ export interface User {
 }
 
 export interface ErrorField{
-  username?: string | null,
-  email: string | null
-  password?: string | null
+  username?: string | null | undefined,
+  email?: string | null | undefined
+  password?: string | null | undefined
+  message?: string | null | undefined
 }
 
 export interface AuthSliceState {

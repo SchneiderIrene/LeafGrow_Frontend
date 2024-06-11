@@ -2,11 +2,9 @@ import { createAppSlice } from "store/createAppSlice"
 import { AuthSliceState, User } from "./types"
 import axios, { AxiosError } from "axios"
 
-
-
 const userInitialState: AuthSliceState = {
   userData: null,
-  isLogin: JSON.parse(localStorage.getItem("isLogin") || 'false'),
+  isLogin: JSON.parse(localStorage.getItem("isLogin") || "false"),
   status: "default",
   error: undefined,
   errorField: null,
@@ -41,26 +39,25 @@ export const authSlice = createAppSlice({
           state.status = "loading"
           state.error = undefined
           state.errorField = null
-         
         },
         fulfilled: (state: AuthSliceState, action: any) => {
           state.status = "success"
           state.userData = action.payload
-       
-        
         },
         rejected: (state: AuthSliceState, action: any) => {
           console.log(action.payload)
           state.status = "error"
-          const {type, message} = action.payload
-          if (type === "validation") {
-             state.errorField = {
-            username: "Dieser Benutzername wird bereits verwendet. Bitte, verwende einen anderen Benutzernamen",
-            email: "Diese E-Mail-Adresse wird bereits verwendet. Bitte, verwende eine andere E-Mail-Adresse",
-          }
-          } else {
-            state.error = action.payload.message
-          }
+          const { type, message } = action.payload
+          if (type === "validation" && message) {
+
+            state.errorField = {
+              message: "Dieser Benutzername oder E-Mail werden bereits verwendet. Bitte, verwende einen anderen Benutzernamen oder E-Mail"
+            };
+            }
+            else {
+              state.error = action.payload.message
+            }
+          
         },
       },
     ),
@@ -99,7 +96,6 @@ export const authSlice = createAppSlice({
           state.userData = action.payload
           state.isLogin = true
           localStorage.setItem("isLogin", JSON.stringify(true))
-
         },
         rejected: (state: AuthSliceState, action: any) => {
           state.status = "error"
@@ -172,7 +168,6 @@ export const authSlice = createAppSlice({
           state.status = "success"
           state.isLogin = true
           localStorage.setItem("isLogin", JSON.stringify(true))
-        
         },
         rejected: (state: AuthSliceState, action: any) => {
           state.status = "error"
@@ -180,12 +175,12 @@ export const authSlice = createAppSlice({
           localStorage.setItem("isLogin", JSON.stringify(false))
 
           console.log(action.payload)
-          const {type, message} = action.payload
+          const { type, message } = action.payload
           if (type === "validation") {
-             state.errorField = {
-            email: "Deine E-Mail-Adresse oder dein Passwort sind falsch.",
-            password: "Deine E-Mail-Adresse oder dein Passwort sind falsch.",
-          }
+            state.errorField = {
+              email: "Deine E-Mail-Adresse oder dein Passwort sind falsch.",
+              password: "Deine E-Mail-Adresse oder dein Passwort sind falsch.",
+            }
           } else {
             state.error = action.payload.message
           }
@@ -325,7 +320,6 @@ export const authSlice = createAppSlice({
         },
       },
     ),
-    
   }),
   selectors: {
     isLogin: state => state.isLogin,

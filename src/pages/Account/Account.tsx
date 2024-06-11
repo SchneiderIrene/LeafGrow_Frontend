@@ -34,7 +34,7 @@ import {
 import { useAppDispatch } from "store/hooks"
 import { CloseButton } from "components/Modal/styles"
 import Button from "components/Button/Button"
-import Spinner from "components/Spinner/Spinner";
+
 
 const Account = () => {
   const dispatch = useAppDispatch()
@@ -112,7 +112,7 @@ const Account = () => {
         <PasswortChangeContainer>
           <TitleInformation>
             Das Benutzername und die E-Mail-Adresse können nicht geändert
-            werden.{" "}
+            werden.
             <span style={{ fontWeight: "700" }}>
               Du kannst nur dein Passwort ändern.
             </span>
