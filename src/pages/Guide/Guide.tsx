@@ -8,14 +8,32 @@ import {
   StyledH3,
   StyledP,
   StyledPCont2,
-  StyledH1
+  StyledH1,
+  ModalContainer,
+  ModalTextWrapper,
+  ArrowIcon,
+  ModalText
 } from "./styles"
 import { authSliceSelectors } from "store/redux/auth/authSlice"
+import Modal from "components/Modal/Modal";
+import Button from "components/Button/Button";
+import { useEffect, useState } from "react";
 
 
 function Guide() {
   const navigate = useNavigate()
   const isLogin = useSelector(authSliceSelectors.isLogin)
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleOpenModal = () => setIsModalOpen(true)
+  const handleCloseModal = () => setIsModalOpen(false)
+
+useEffect (()=>{
+  if(!isLogin){
+handleOpenModal();
+  }
+}, [])
 
 
   return (
@@ -87,21 +105,21 @@ function Guide() {
           </Container>
         </>
       )}
-      {/* {!isLogin && (
-        <Modal isOpen={!isLogin} onClose={goToHomePage}>
+      {!isLogin && (
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
           <ModalContainer>
             <ModalTextWrapper>
-              <p>
+              <ModalText>
                 Diese Seite ist nur für registrierte und eingeloggte
                 Benutzer/innen verfügbar
-              </p>
-              <Button name={<span>Zurück zum Homepage <ArrowIcon>→</ArrowIcon></span>} bgColorIsRed onButtonClick={handleButtonClick}/>
-                
- 
+              </ModalText>
+              <Button name={<span>Zurück zum Homepage <ArrowIcon>→</ArrowIcon></span>} 
+              bgColorIsRed 
+              onButtonClick={()=>navigate("/")}/>
             </ModalTextWrapper>
           </ModalContainer>
         </Modal>
-      )} */}
+      )}
     </GuidePageWrapper>
   )
 }

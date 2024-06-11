@@ -108,4 +108,43 @@ export const StyledP = styled.p<{ isLogin: boolean }>`
   padding: 16px 16px 0 16px;
 `
 
+export const ModalContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 80px 40px 80px;
+  width: 660px;
+  height: 280px;
+  max-width: 80%;
+  border: 2px solid rgba(2, 88, 41, 1);
+  background-color: rgba(255, 254, 239, 1);
+  text-align: center;
+`
+
+export const ModalTextWrapper = styled.div`
+  width: 444px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  gap: 36px;
+`
+
+export const ArrowIcon = styled.span`
+  margin-left: 10px;
+`
+
+export const ModalText = styled.p`
+  font-family: "Inter";
+  font-weight: 600;
+  font-size: 24px;
+  color: rgba(55, 62, 58, 1);
+`
+
+
 

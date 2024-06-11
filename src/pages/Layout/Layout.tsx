@@ -11,7 +11,6 @@ import {
   Main,
   Footer,
   StyledNavLink,
-  StyledLink,
   FooterNavContainer,
   UserName,
   AccountContainer,
