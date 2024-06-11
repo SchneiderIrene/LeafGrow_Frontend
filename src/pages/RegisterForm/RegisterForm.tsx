@@ -14,8 +14,6 @@ import {
   StyledLink,
   StyledP,
   TextError,
-  TextErrorField,
-  TextErrorServer,
   TextMessage,
   TextQustion,
   TitleContainer,
