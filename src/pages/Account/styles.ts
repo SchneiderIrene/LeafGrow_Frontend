@@ -4,11 +4,15 @@ export const AccountWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 125px;
   gap: 65px;
+  flex: 1;
 `
 export const AccountContainer = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 147px;
 `
 export const Title = styled.h3`

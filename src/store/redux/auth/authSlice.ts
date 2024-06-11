@@ -1,11 +1,12 @@
 import { createAppSlice } from "store/createAppSlice"
 import { AuthSliceState, User } from "./types"
 import axios, { AxiosError } from "axios"
-import { error } from "console"
+
+
 
 const userInitialState: AuthSliceState = {
   userData: null,
-  isLogin: false,
+  isLogin: JSON.parse(localStorage.getItem("isLogin") || 'false'),
   status: "default",
   error: undefined,
   errorField: null,
@@ -40,11 +41,13 @@ export const authSlice = createAppSlice({
           state.status = "loading"
           state.error = undefined
           state.errorField = null
+         
         },
         fulfilled: (state: AuthSliceState, action: any) => {
           state.status = "success"
           state.userData = action.payload
-          state.isLogin = false
+       
+        
         },
         rejected: (state: AuthSliceState, action: any) => {
           console.log(action.payload)
@@ -68,8 +71,18 @@ export const authSlice = createAppSlice({
         } catch (error) {
           if (error instanceof AxiosError) {
             if (error.response?.status === 500) {
-              return thunkApi.rejectWithValue("Server Error")
+              return thunkApi.rejectWithValue({
+                message: "Server Error",
+                type: "server errors",
+              })
             }
+            if (error.response?.status === 408) {
+              return thunkApi.rejectWithValue({
+                message: "Истек срок действия ссылки",
+                type: "server errors",
+              })
+            }
+
             return thunkApi.rejectWithValue(error?.response?.data.message)
           }
         }
@@ -79,11 +92,14 @@ export const authSlice = createAppSlice({
           state.status = "loading"
           state.userData = action.payload
           state.isLogin = false
+          localStorage.setItem("isLogin", JSON.stringify(false))
         },
         fulfilled: (state: AuthSliceState, action: any) => {
           state.status = "success"
           state.userData = action.payload
           state.isLogin = true
+          localStorage.setItem("isLogin", JSON.stringify(true))
+
         },
         rejected: (state: AuthSliceState, action: any) => {
           state.status = "error"
@@ -133,6 +149,12 @@ export const authSlice = createAppSlice({
                 type: "server errors",
               })
             }
+            if (error.response?.status === 401) {
+              return thunkApi.rejectWithValue({
+                message: "Musst du deine Registrierung per E-Mail bestätigen",
+                type: "confirm errors",
+              })
+            }
             return thunkApi.rejectWithValue({
               message: error?.response?.data.message,
               type: "validation",
@@ -149,10 +171,13 @@ export const authSlice = createAppSlice({
         fulfilled: (state: AuthSliceState, action: any) => {
           state.status = "success"
           state.isLogin = true
+          localStorage.setItem("isLogin", JSON.stringify(true))
+        
         },
         rejected: (state: AuthSliceState, action: any) => {
           state.status = "error"
           state.isLogin = false
+          localStorage.setItem("isLogin", JSON.stringify(false))
 
           console.log(action.payload)
           const {type, message} = action.payload
@@ -190,6 +215,7 @@ export const authSlice = createAppSlice({
           state.status = "success"
           state.userData = null
           state.isLogin = false
+          localStorage.setItem("isLogin", JSON.stringify(false))
           state.error = null
         },
         rejected: (state: AuthSliceState, action: any) => {
@@ -225,6 +251,7 @@ export const authSlice = createAppSlice({
           state.status = "error"
           state.error = action.payload
           state.isLogin = false
+          localStorage.setItem("isLogin", JSON.stringify(false))
         },
       },
     ),
@@ -252,11 +279,13 @@ export const authSlice = createAppSlice({
           state.status = "loading"
           state.error = undefined
           state.isLogin = true
+          localStorage.setItem("isLogin", JSON.stringify(true))
         },
         fulfilled: (state: AuthSliceState, action: any) => {
           state.status = "success"
           state.userData = action.payload
           state.isLogin = true
+          localStorage.setItem("isLogin", JSON.stringify(true))
         },
         rejected: (state: AuthSliceState, action: any) => {
           state.status = "error"
@@ -288,6 +317,7 @@ export const authSlice = createAppSlice({
           state.status = "success"
           state.userData = null
           state.isLogin = false
+          localStorage.setItem("isLogin", JSON.stringify(false))
         },
         rejected: (state: AuthSliceState, action: any) => {
           state.status = "error"
@@ -295,7 +325,7 @@ export const authSlice = createAppSlice({
         },
       },
     ),
-    resetState: create.reducer((state: AuthSliceState) => userInitialState),
+    
   }),
   selectors: {
     isLogin: state => state.isLogin,

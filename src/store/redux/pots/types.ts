@@ -1,10 +1,11 @@
 export interface Pot {
-  id: string;
-  active: boolean;
+  potId: string;
+  isActive: boolean;
 }
 
-export interface PotsState {
+
+export interface PotsSliceState {
   pots: Pot[];
-  isLoading: boolean;
-  error: string | null;
+  status: "default" | "loading" | "success" | "error";
+  error: string | null | undefined;
 }

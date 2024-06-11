@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 export const MyPotsWrapper = styled.div`
@@ -43,4 +43,14 @@ filter: grayscale(100%);
 
 export const StyledLink = styled(NavLink)`
 
+`
+
+export const ButtonControl = styled.div`
+filter: grayscale(100%);
+width: 100%;
+position: relative;
+
+:hover {
+  transform: scale(1.1);
+}
 `

@@ -58,7 +58,7 @@ export const OverlayContainer = styled.div`
   width: 100%;
   z-index: 2;
 
-  & > *:first-child {
+  & > *:first-of-type {
     margin-left: 220px;
   }
 

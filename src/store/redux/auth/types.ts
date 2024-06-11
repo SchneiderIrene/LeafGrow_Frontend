@@ -1,9 +1,13 @@
+import { Pot } from "../pots/types";
+
 export interface User {
-  username?: string
-  email?: string
-  password?: string
+  username?: string,
+  id?: string,
+  email?: string,
+  password?: string,
   newPassword?: string,
-  akzeptCheckBox?: boolean
+  akzeptCheckBox?: boolean,
+ 
 }
 
 export interface ErrorField{
@@ -18,6 +22,5 @@ export interface AuthSliceState {
   status: "default" | "loading" | "success" | "error";
   error: any;
   errorField: ErrorField | null,
-  
   
 }

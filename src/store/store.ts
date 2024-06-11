@@ -5,10 +5,11 @@ import {
   configureStore,
 } from "@reduxjs/toolkit"
 import { authSlice } from "./redux/auth/authSlice";
+import { potsSlice } from "./redux/pots/potsSlice";
 
 
 
-const rootReducer = combineSlices(authSlice)
+const rootReducer = combineSlices(authSlice, potsSlice)
 
 
 export type RootState = ReturnType<typeof rootReducer>

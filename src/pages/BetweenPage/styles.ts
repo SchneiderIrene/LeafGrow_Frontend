@@ -21,6 +21,10 @@ height: 223px;
 export const MessageSuccessRegister = styled.h1`
 font-size: 32px;
 `
+export const MessageErrorRegisterConfirm = styled.h1`
+font-size: 32px;
+color: rgba(186, 45, 0, 1);
+`
 export const ButtonContainer = styled.div`
 display: flex;
 flex-direction: column;

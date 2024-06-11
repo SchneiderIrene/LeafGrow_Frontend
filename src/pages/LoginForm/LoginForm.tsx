@@ -67,7 +67,6 @@ const LoginForm = () => {
     )
   }
   const toRegister = () => {
-    dispatch(authSliceActions.resetState())
     navigate("/register")
   }
 

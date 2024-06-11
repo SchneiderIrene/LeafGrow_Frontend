@@ -27,7 +27,7 @@ import {
   authSliceActions,
   authSliceSelectors,
 } from "store/redux/auth/authSlice"
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import GoToBackButton from "components/GoToBackButton/GoToBackButton";
 import Button from "components/Button/Button";
 import Spinner from "components/Spinner/Spinner";
@@ -39,11 +39,6 @@ function RegisterForm() {
   const status = useAppSelector(authSliceSelectors.status)
   const [isRegister, setIsRegister] = useState(false)
 
-  useEffect(() => {
-    if (status === "success" && !errorField) {
-      setIsRegister(true)
-    }
-  }, [status, errorField])
 
   const validationSchema = Yup.object().shape({
     [FIELD_NAMES.USERNAME]: Yup.string()
@@ -115,7 +110,7 @@ function RegisterForm() {
             Wir haben dir eine E-Mail mit dem Verifizierungslink geschickt.
           </TextMessage>
           <TextQustion>Hast du die E-Mail noch nicht erhalten? </TextQustion>
-          <ButtonMessage onClick={resetEmail}>Erneut senden</ButtonMessage>
+          <Button  name="Erneut senden" bgColorIsRed onButtonClick={resetEmail}/>
           <BackToRegister onClick={showRegisterForm}>
             Zurück zur Registrierung
           </BackToRegister>

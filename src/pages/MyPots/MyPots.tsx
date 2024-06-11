@@ -1,33 +1,54 @@
-import { useNavigate } from "react-router-dom";
+
 import {
+  ButtonControl,
   MyPotsWrapper,
   PotCard,
   PotImage,
   PotTitle,
   PotsContainer,
-  StyledLink,
 } from "./styles"
 import { PotImg } from "assets"
+import Button from "components/Button/Button";
+import { useAppDispatch, useAppSelector } from "store/hooks";
+
+import { Pot } from "store/redux/pots/types";
+
+import { useEffect } from "react";
+import { potsSliceActions, potsSliceSelectors } from "store/redux/pots/potsSlice";
+
 
 
 function MyPots() {
-const navigate = useNavigate()
+const dispatch = useAppDispatch()
+const pots = useAppSelector(potsSliceSelectors.potData)
+
+
+
+useEffect(()=>{
+dispatch(potsSliceActions.potProfile())
+}, [])
+
+  const activatePot = (id: string) => {
+    dispatch(potsSliceActions.activatePot(id));
+  }
 
   return (
     <MyPotsWrapper>
       <PotsContainer>
-        <PotCard onClick={()=>{navigate("/mypots/pot1")}}>
-          <PotTitle>Topf 1</PotTitle>
-          <PotImage src={PotImg} alt="pot" />
-        </PotCard>
-        <PotCard onClick={()=>{navigate("/mypots/pot2")}}>
-          <PotTitle>Topf 2</PotTitle>
-          <PotImage src={PotImg} alt="pot" />
-        </PotCard>
-        <PotCard onClick={()=>{navigate("/mypots/pot3")}}>
-          <PotTitle>Topf 3</PotTitle>
-          <PotImage src={PotImg} alt="pot" />
-        </PotCard>
+
+      {pots.map((pot: Pot, index: number) => (
+          <PotCard key={index}>
+            <PotTitle>{`Topf ${index + 1}`}</PotTitle>
+            <PotImage src={PotImg} alt="pot" />
+            <ButtonControl>
+              <Button
+                name="Aktivieren"
+                bgColorIsRed
+                onButtonClick={()=>activatePot(pot.potId)}
+              />
+            </ButtonControl>
+          </PotCard>
+        ))}
       </PotsContainer>
     </MyPotsWrapper>
   )

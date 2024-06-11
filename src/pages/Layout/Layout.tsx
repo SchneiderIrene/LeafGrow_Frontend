@@ -36,20 +36,21 @@ function Layout({ children }: LayoutProps) {
   const userLogIn = useAppSelector(authSliceSelectors.isLogin)
   const userData = useAppSelector(authSliceSelectors.userData)
 
-  const handleLinkClick = (path: string) => {
+  const handleLinkClick = (event:React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
+       event.preventDefault();
     if (!userLogIn && (path === "/guide" || path === "/mypots")) {
       if (path === "/guide") {
         alert("Anleitung ist nur für registrierte und angemeldete Benutzer verfügbar.");
       } else if (path === "/mypots") {
         alert("Meine Töpfe ist nur für registrierte und angemeldete Benutzer verfügbar.");
       }
-    } else {
+      
+      return;
+    } 
       navigate(path);
-    }
   };
 
   const toLogin = () => {
-    dispatch(authSliceActions.resetState())
     navigate("/login")
   }
 
@@ -74,7 +75,7 @@ function Layout({ children }: LayoutProps) {
               textDecoration: isActive ? "underline" : "none",
             })}
             to="/guide"
-            onClick={() => handleLinkClick("/guide")}
+            onClick={(e) => handleLinkClick(e,"/guide")}
           >
             Anleitung
           </StyledNavLink>
@@ -83,7 +84,7 @@ function Layout({ children }: LayoutProps) {
               textDecoration: isActive ? "underline" : "none",
             })}
             to="/mypots"
-            onClick={() => handleLinkClick("/mypots")}
+            onClick={(e) => handleLinkClick(e, "/mypots")}
           >
             Töpfe
           </StyledNavLink>
@@ -92,7 +93,7 @@ function Layout({ children }: LayoutProps) {
           {userLogIn ? (
             <StyledNavLink
               to="/account"
-              onClick={() => handleLinkClick("/account")}
+              onClick={() => navigate("/account")}
             >
               <AccountContainer>
                 <MdAccountCircle />
