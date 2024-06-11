@@ -181,7 +181,7 @@ function RegisterForm() {
               <span>*Ich habe die </span>
               <a href="/nutzungsbedingungen">Nutzungsbedinungen</a>
               <span> und </span>
-              <a href="/legalinfo">gesetzliche Informationen</a>
+              <a href="/legalinfo" target="_blank">gesetzliche Informationen</a>
               <span>
                 gelesen und akzeptiere diese. Zusätzlich habe ich die
                 Informationen über die Verwendung meiner personenbezogenen Daten
