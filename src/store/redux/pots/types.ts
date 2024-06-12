@@ -1,6 +1,6 @@
 export interface Pot {
-  potId: string;
-  isActive: boolean;
+  id: string;
+  active: boolean;
 }
 
 

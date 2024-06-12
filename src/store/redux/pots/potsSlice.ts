@@ -43,12 +43,20 @@ export const potsSlice = createAppSlice({
         },
         fulfilled: (state: PotsSliceState, action: any) => {
           state.status = "success"
+          console.log("Payload received:", action.payload);
+          if (action.payload && action.payload.id) {
           state.pots = state.pots.map((p)=>{
-            if(p.potId === action.payload.potId){
+            if(p.id === action.payload.id){
               return action.payload
             }
+            console.log(action.payload);
+            
             return p;
           })
+        } else {
+          console.error("Unexpected payload format:", action.payload);
+        }
+
         
         },
         rejected: (state: PotsSliceState, action: any) => {

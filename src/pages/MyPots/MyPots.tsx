@@ -1,7 +1,7 @@
-
 import {
   ArrowIcon,
   ButtonControl,
+  LinkTopf,
   ModalContainer,
   ModalText,
   ModalTextWrapper,
@@ -12,60 +12,70 @@ import {
   PotsContainer,
 } from "./styles"
 import { PotImg } from "assets"
-import Button from "components/Button/Button";
-import { useAppDispatch, useAppSelector } from "store/hooks";
+import Button from "components/Button/Button"
+import { useAppDispatch, useAppSelector } from "store/hooks"
 
-import { Pot } from "store/redux/pots/types";
+import { Pot } from "store/redux/pots/types"
 
-import { useEffect, useState } from "react";
-import { potsSliceActions, potsSliceSelectors } from "store/redux/pots/potsSlice";
-import { authSliceSelectors } from "store/redux/auth/authSlice";
-import Modal from "components/Modal/Modal";
-import { useNavigate } from "react-router-dom";
-
-
+import { useEffect, useState } from "react"
+import {
+  potsSliceActions,
+  potsSliceSelectors,
+} from "store/redux/pots/potsSlice"
+import { authSliceSelectors } from "store/redux/auth/authSlice"
+import Modal from "components/Modal/Modal"
+import { Link, useNavigate } from "react-router-dom"
+import { boolean } from "yup";
 
 function MyPots() {
-const dispatch = useAppDispatch()
-const pots = useAppSelector(potsSliceSelectors.potData)
-const isLogin = useAppSelector(authSliceSelectors.isLogin)
-const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const pots = useAppSelector(potsSliceSelectors.potData)
+  const isLogin = useAppSelector(authSliceSelectors.isLogin)
+  const navigate = useNavigate()
 
-const [isModalOpen, setIsModalOpen] = useState(false)
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
 
-useEffect (()=>{
-  if(!isLogin){
-handleOpenModal();
-  }
-}, [])
+  const [isActivePot, setIsActivePot] = useState<{[key: string] : boolean}>({})
 
-useEffect(()=>{
-dispatch(potsSliceActions.potProfile())
-}, [])
+
+  useEffect(() => {
+    if (!isLogin) {
+      handleOpenModal()
+    }
+  }, [])
+
+  useEffect(() => {
+    dispatch(potsSliceActions.potProfile())
+  }, [])
+
+  
 
   const activatePot = (id: string) => {
-    dispatch(potsSliceActions.activatePot(id));
+    dispatch(potsSliceActions.activatePot(id))  
   }
 
   return (
     <MyPotsWrapper>
       <PotsContainer>
-
-      {pots.map((pot: Pot, index: number) => (
-          <PotCard key={index}>
+        {pots.map((pot: Pot, index: number) => (
+          <LinkTopf to={pot.active ? `/mypots/pot${index + 1}` : "#"}>
+          <PotCard activ={pot.active} key={pot.id}>
             <PotTitle>{`Topf ${index + 1}`}</PotTitle>
             <PotImage src={PotImg} alt="pot" />
             <ButtonControl>
-              <Button
+              {!pot.active && (
+                <Button
                 name="Aktivieren"
                 bgColorIsRed
-                onButtonClick={()=>activatePot(pot.potId)}
+                onButtonClick={() => activatePot(pot.id)}
               />
+              )}
             </ButtonControl>
           </PotCard>
+          </LinkTopf>
+          
         ))}
       </PotsContainer>
       {!isLogin && (
@@ -76,9 +86,15 @@ dispatch(potsSliceActions.potProfile())
                 Diese Seite ist nur für registrierte und eingeloggte
                 Benutzer/innen verfügbar
               </ModalText>
-              <Button name={<span>Zurück zum Homepage <ArrowIcon>→</ArrowIcon></span>} 
-              bgColorIsRed 
-              onButtonClick={()=>navigate("/")}/>
+              <Button
+                name={
+                  <span>
+                    Zurück zum Homepage <ArrowIcon>→</ArrowIcon>
+                  </span>
+                }
+                bgColorIsRed
+                onButtonClick={() => navigate("/")}
+              />
             </ModalTextWrapper>
           </ModalContainer>
         </Modal>

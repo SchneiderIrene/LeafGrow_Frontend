@@ -1,7 +1,7 @@
 import { createAppSlice } from "store/createAppSlice"
 import { AuthSliceState, User } from "./types"
 import axios, { AxiosError } from "axios"
-import { create } from "domain";
+
 
 const userInitialState: AuthSliceState = {
   userData: null,
