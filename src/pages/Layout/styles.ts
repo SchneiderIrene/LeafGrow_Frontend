@@ -99,18 +99,38 @@ export const AccountContainer = styled.div`
 export const StyledButton = styled.div`
   width: 216px;
 `
+export const FooterContent = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;`
+
 export const FooterLeftLink = styled(StyledLink)`
-  margin-right: auto;
+  text-decoration: none;
   color: #373e3a;
   font-size: 14px;
+  display: inline-block;
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 1px solid transparent;
 `
 
-export const FooterRightLinks = styled.div`
-  display: flex;
-  gap: 20px;
-  & > ${StyledLink} {
-    color: #373e3a;
-  }
+// export const FooterRightLinks = styled.div`
+//   display: flex;
+//   gap: 20px;
+//   & > ${StyledLink} {
+//     color: #373e3a;
+//   }
+// `
+
+export const FooterText = styled.p`
+  font-size: 14px;
+  color: #373e3a;
+  display: inline-block;
+`
+
+export const CopyrightText = styled.p`
+  font-size: 14px;
+  color: #373e3a;
 `
 
 export const ModalContainer = styled.div`

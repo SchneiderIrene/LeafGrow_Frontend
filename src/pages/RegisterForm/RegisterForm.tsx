@@ -51,18 +51,14 @@ function RegisterForm() {
       .email("Muss eine gültige E-Mail-Adresse sein")
       .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Ungültige E-Mail"),
     [FIELD_NAMES.PASSWORD]: Yup.string()
-      .required("Passwort ist erforderlich")
-      .min(8, "Mindestens 8 Zeichen")
-      .max(60, "Maximal 60 Zeichen")
-      .matches(/[a-z]/, "Mindestens 1 Kleinbuchstabe")
-      .matches(/[A-Z]/, "Mindestens 1 Großbuchstabe")
-      .matches(/[0-9]/, "Mindestens 1 Ziffer"),
+      .required("Für dein Passwort wähle mindestens 8 Zeichen mit 1 Kleinbuchstabe, 1 Großbuchstabe und 1 Ziffer")
+      .min(8, "Für dein Passwort wähle mindestens 8 Zeichen mit 1 Kleinbuchstabe, 1 Großbuchstabe und 1 Ziffer")
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, "Für dein Passwort wähle mindestens 8 Zeichen mit 1 Kleinbuchstabe, 1 Großbuchstabe und 1 Ziffer"),
     [FIELD_NAMES.CHECKBOX]: Yup.boolean().oneOf(
       [true],
       "Checkbox muss akzeptiert werden",
     ),
   })
-
   const formik = useFormik({
     initialValues: {
       [FIELD_NAMES.USERNAME]: "",
@@ -71,8 +67,8 @@ function RegisterForm() {
       [FIELD_NAMES.CHECKBOX]: false,
     } as RegisterFormValues,
     validationSchema: validationSchema,
-    validateOnBlur: true,
-    validateOnChange: true,
+    validateOnBlur: false,
+    validateOnChange: false,
     onSubmit: (values: RegisterFormValues) => {
       if (formik.isValid) {
         addUser()

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
 import Input from "components/Input/Input"
 import * as Yup from "yup"
 import { FIELD_NAMES, LoginFormValues } from "./types"
@@ -42,8 +41,7 @@ const LoginForm = () => {
     [FIELD_NAMES.EMAIL]: Yup.string()
       .required("E-Mail-Adresse ist erforderlich")
       .email("Muss eine gültige E-Mail-Adresse sein"),
-    password: Yup.string().required("Passwort ist erforderlich"),
-    [FIELD_NAMES.PASSWORD]: Yup.string(),
+    [FIELD_NAMES.PASSWORD]: Yup.string().required("Passwort ist erforderlich"),
   })
 
   const formik = useFormik({
@@ -52,6 +50,8 @@ const LoginForm = () => {
       [FIELD_NAMES.PASSWORD]: "",
     } as LoginFormValues,
     validationSchema: validationSchema,
+    validateOnBlur: false,
+    validateOnChange: false,
     onSubmit: (values: LoginFormValues) => {
       loginUser()
       console.log(values)

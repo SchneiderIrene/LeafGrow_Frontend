@@ -147,7 +147,7 @@ function Layout({ children }: LayoutProps) {
       </Header>
       <Main>{children}</Main>
       <Footer>
-      <FooterLeftLink to="/gesetzinfo">
+      <FooterLeftLink to="/legalInfo">
           Gesetzliche Informationen
         </FooterLeftLink>
         <div>
