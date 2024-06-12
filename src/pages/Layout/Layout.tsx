@@ -155,9 +155,6 @@ function Layout({ children }: LayoutProps) {
         <div>
           <p>Copyright © 2024 LeafGrow</p>
         </div>
-        <HeaderLogoContainer onClick={goToHomePage}>
-          <HeaderLogo src={LogoH} />
-        </HeaderLogoContainer>
         <FooterNavContainer>
            {/* <StyledLink to="/">Datenschutz</StyledLink>
           <StyledLink to="/">Nutzungsbedingungen</StyledLink>

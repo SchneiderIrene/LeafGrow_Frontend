@@ -25,7 +25,7 @@ import {
 import { authSliceSelectors } from "store/redux/auth/authSlice"
 import Modal from "components/Modal/Modal"
 import { Link, useNavigate } from "react-router-dom"
-import { boolean } from "yup";
+
 
 function MyPots() {
   const dispatch = useAppDispatch()
@@ -37,8 +37,7 @@ function MyPots() {
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
 
-  const [isActivePot, setIsActivePot] = useState<{[key: string] : boolean}>({})
-
+  const [pot, setPot] = useState([])
 
   useEffect(() => {
     if (!isLogin) {
@@ -60,7 +59,7 @@ function MyPots() {
     <MyPotsWrapper>
       <PotsContainer>
         {pots.map((pot: Pot, index: number) => (
-          <LinkTopf to={pot.active ? `/mypots/pot${index + 1}` : "#"}>
+          <LinkTopf to={pot.active ? `/mypots/pot/${pot.id}` : "#"} key={pot.id}>
           <PotCard activ={pot.active} key={pot.id}>
             <PotTitle>{`Topf ${index + 1}`}</PotTitle>
             <PotImage src={PotImg} alt="pot" />

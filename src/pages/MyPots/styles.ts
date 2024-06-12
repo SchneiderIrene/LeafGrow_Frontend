@@ -27,8 +27,8 @@ flex-direction: column;
 justify-content: space-around;
 align-items: center;
 background-color: rgba(242, 242, 242, 1);
-width: 404px;
-height: 450px;
+width: 340px;
+height: 356px;
 box-shadow: 4px 10px 4px rgba(55, 62, 58, 0.2) ;
 padding: 40px;
 background-color: rgba(255, 240, 212, 1);
@@ -48,8 +48,8 @@ position: relative;
 `
 export const PotImage = styled.img`
 position: relative;
-width: 200px;
-height: 280px;
+width: 124px;
+height: 175px;
 
 `
 
@@ -62,6 +62,8 @@ position: relative;
 filter: grayscale(100%);
 width: 100%;
 position: relative;
+height: 48px;
+width: 200px;
 
 :hover {
   transform: scale(1.1);
