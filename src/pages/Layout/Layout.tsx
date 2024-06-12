@@ -23,8 +23,8 @@ import {
   ModalText
 } from "./styles"
 import { LogoH } from "assets"
-import {authSliceSelectors} from "store/redux/auth/authSlice"
-import {  useAppSelector } from "store/hooks"
+import {authSliceActions, authSliceSelectors} from "store/redux/auth/authSlice"
+import {  useAppDispatch, useAppSelector } from "store/hooks"
 import Button from "components/Button/Button"
 import Modal from "components/Modal/Modal";
 import { useState } from "react";
@@ -39,6 +39,7 @@ function Layout({ children }: LayoutProps) {
 
   const isLogin = useAppSelector(authSliceSelectors.isLogin)
   const userData = useAppSelector(authSliceSelectors.userData)
+  const dispatch = useAppDispatch();
 
   
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -49,6 +50,7 @@ function Layout({ children }: LayoutProps) {
 
 
   const toLogin = () => {
+    dispatch(authSliceActions.resetErrorField())
     navigate("/login")
   }
 

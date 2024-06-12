@@ -1,6 +1,7 @@
 import { createAppSlice } from "store/createAppSlice"
 import { AuthSliceState, User } from "./types"
 import axios, { AxiosError } from "axios"
+import { create } from "domain";
 
 const userInitialState: AuthSliceState = {
   userData: null,
@@ -320,7 +321,11 @@ export const authSlice = createAppSlice({
         },
       },
     ),
+     resetErrorField: create.reducer((state: AuthSliceState)=>{
+      state.errorField = null
+     })
   }),
+ 
   selectors: {
     isLogin: state => state.isLogin,
     userData: state => state.userData,
