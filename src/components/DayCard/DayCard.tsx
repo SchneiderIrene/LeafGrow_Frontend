@@ -7,18 +7,13 @@ import {
     Container2,
     Container3,
   } from "./styles"
-  
-  const DayCard: React.FC<CardProps> = ({
-    image,
-    title,
-    content,
-    isNumbered,
-  }) => {
+
+  function DayCard ({image, title, content, isNumbered} : CardProps)  {
     return (
       <CardContainer>
         <ImageContainer src={image} alt={title} />
-        <StyledH1>{title}</StyledH1>
-        {isNumbered ? (
+        <StyledH1>TAG{title}</StyledH1>
+        {/* {isNumbered ? (
           <ol>
             {(content as string[]).map((item, index) => (
               <li key={index}>
@@ -28,7 +23,7 @@ import {
           </ol>
         ) : (
           <StyledP>{content as string}</StyledP>
-        )}
+        )} */}
         <Container2>
           <StyledH2>Subtitle 2</StyledH2>
           <StyledP>Paragraph 2</StyledP>
@@ -40,5 +35,9 @@ import {
       </CardContainer>
     )
   }
+
+
+
+  
   
   export default DayCard
