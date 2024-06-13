@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { potsSliceActions, potsSliceSelectors } from "store/redux/pots/potsSlice";
 import { PotContainer } from "./styles";
+import DayCard from "components/DayCard/DayCard";
 
 function Pot() {
 const dispatch = useAppDispatch();
@@ -26,6 +27,12 @@ const deActivatePot = (id: string) => {
 
     return (
       <PotContainer>
+        {/* <DayCard 
+         image={''}
+         content={''}
+         isNumbered={true}
+         title={''}
+        /> */}
         <Button name="Refresh Topf" bgColorIsRed onButtonClick={()=> id && deActivatePot(id)}/>      
       </PotContainer>
     );
