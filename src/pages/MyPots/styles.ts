@@ -32,7 +32,7 @@ height: 356px;
 box-shadow: 4px 10px 4px rgba(55, 62, 58, 0.2) ;
 padding: 40px;
 background-color: rgba(255, 240, 212, 1);
-cursor: ${({ activ }) => (activ ? "pointer" : "auto")}; 
+cursor: pointer; 
 filter: ${({ activ }) => (activ ? "none" : "grayscale(100%)")}; 
 `
 export const LinkTopf = styled(Link)`

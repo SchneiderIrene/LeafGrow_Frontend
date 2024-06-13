@@ -7,6 +7,7 @@ import {
 } from "store/redux/pots/potsSlice"
 import { ButtonContainer, ButtonControl, PotContainer, PotWrapper, StyledP } from "./styles"
 import DayCard from "components/DayCard/DayCard"
+import { useEffect } from "react";
 
 function Pot() {
   const dispatch = useAppDispatch()
@@ -16,12 +17,23 @@ function Pot() {
 
   const pot = pots.find(p => p.id === id?.toString())
 
+  useEffect(() => {
+    dispatch(potsSliceActions.potProfile())
+  }, [])
+
+  useEffect(() => {
+    dispatch(potsSliceActions.potProfile())
+  }, [dispatch])
+
   const deActivatePot = (id: string) => {
     console.log(pot)
 
     dispatch(potsSliceActions.deActivatePot(id))
     console.log(pot)
-    navigate("/mypots")
+  }
+
+  const activatePot = (id: string) => {
+    dispatch(potsSliceActions.activatePot(id))  
   }
 
   return (
@@ -33,11 +45,13 @@ function Pot() {
           <br /> zum ersten Tag und aktivierte deinen Topf, wenn du bereit bist.
         </StyledP>
         <ButtonControl>
+          {!pot?.active && 
           <Button
           name="Topf activieren"
           bgColorIsRed
-          onButtonClick={() => id && deActivatePot(id)}
+          onButtonClick={() => id && activatePot(id)}
         />
+        }
         </ButtonControl>
       </ButtonContainer>
       <DayCard />

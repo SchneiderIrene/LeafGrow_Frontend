@@ -1,6 +1,5 @@
 import {
   ArrowIcon,
-  ButtonControl,
   LinkTopf,
   ModalContainer,
   ModalText,
@@ -24,7 +23,7 @@ import {
 } from "store/redux/pots/potsSlice"
 import { authSliceSelectors } from "store/redux/auth/authSlice"
 import Modal from "components/Modal/Modal"
-import { Link, useNavigate } from "react-router-dom"
+import {  useNavigate } from "react-router-dom"
 
 
 function MyPots() {
@@ -37,8 +36,6 @@ function MyPots() {
   const handleOpenModal = () => setIsModalOpen(true)
   const handleCloseModal = () => setIsModalOpen(false)
 
-  const [pot, setPot] = useState([])
-
   useEffect(() => {
     if (!isLogin) {
       handleOpenModal()
@@ -49,32 +46,16 @@ function MyPots() {
     dispatch(potsSliceActions.potProfile())
   }, [])
 
-  
-
-  const activatePot = (id: string) => {
-    dispatch(potsSliceActions.activatePot(id))  
-  }
-
   return (
     <MyPotsWrapper>
       <PotsContainer>
         {pots.map((pot: Pot, index: number) => (
-          <LinkTopf to={pot.active ? `/mypots/pot/${pot.id}` : "#"} key={pot.id}>
+          <LinkTopf to={`/mypots/pot/${pot.id}`}>
           <PotCard activ={pot.active} key={pot.id}>
             <PotTitle>{`Topf ${index + 1}`}</PotTitle>
             <PotImage src={PotImg} alt="pot" />
-            <ButtonControl>
-              {!pot.active && (
-                <Button
-                name="Aktivieren"
-                bgColorIsRed
-                onButtonClick={() => activatePot(pot.id)}
-              />
-              )}
-            </ButtonControl>
           </PotCard>
           </LinkTopf>
-          
         ))}
       </PotsContainer>
       {!isLogin && (

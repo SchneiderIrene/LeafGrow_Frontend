@@ -12,6 +12,7 @@ export const PotContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   width: 1100px;
 `
 

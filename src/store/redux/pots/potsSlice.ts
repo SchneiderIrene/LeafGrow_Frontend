@@ -149,6 +149,7 @@ export const potsSlice = createAppSlice({
         fulfilled: (state: PotsSliceState, action: any) => {
           state.status = "success"
           state.pots = action.payload
+          // localStorage.setItem("potProfile", JSON.stringify(true))
         },
         rejected: (state: PotsSliceState, action: any) => {
           console.log(action.payload)
